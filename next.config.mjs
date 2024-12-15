@@ -17,7 +17,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/milucid-landing-page' : '',
+  basePath: '',
+  assetPrefix: '',
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
 }
 
