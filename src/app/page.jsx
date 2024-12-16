@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import previewImage from './work/easypop/preview.png'
 
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
@@ -147,9 +148,13 @@ function EasyPopSection() {
         <div className="mt-10 lg:mt-0 lg:w-1/2 lg:pl-12">
           <FadeIn>
             <div className="aspect-[4/3] relative rounded-3xl bg-neutral-100 overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center text-neutral-500">
-                App Screenshot Coming Soon
-              </div>
+              <Image
+                src={previewImage}
+                alt="EasyPop Preview"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </FadeIn>
         </div>
