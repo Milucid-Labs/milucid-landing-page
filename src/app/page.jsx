@@ -8,6 +8,7 @@ import { List, ListItem } from '@/components/List'
 import { SectionIntro } from '@/components/SectionIntro'
 import { StylizedImage } from '@/components/StylizedImage'
 import { Testimonial } from '@/components/Testimonial'
+import { ShopifyButton } from '@/components/ShopifyButton'
 import logoBrightPath from '@/images/clients/bright-path/logo-light.svg'
 import logoFamilyFund from '@/images/clients/family-fund/logo-light.svg'
 import logoGreenLife from '@/images/clients/green-life/logo-light.svg'
@@ -83,17 +84,17 @@ function CaseStudies({ caseStudies }) {
             </FadeIn>
           </div>
           <List className="mt-16 lg:mt-0 lg:w-1/2 lg:min-w-[33rem] lg:pl-4">
-            <ListItem title="EasyPop for Shopify">
-              Create and manage personalized pop-up notifications to boost engagement and drive sales.
+            <ListItem title="Custom Solutions">
+              We develop tailored applications that address specific business needs and enhance functionality.
             </ListItem>
-            <ListItem title="Advanced Features">
-              Target specific devices, manage multiple campaigns, and track analytics in real-time.
+            <ListItem title="Modern Technology">
+              Built with cutting-edge frameworks and tools for optimal performance and reliability.
             </ListItem>
-            <ListItem title="Seamless Integration">
-              Built with Remix framework and Shopify App Bridge for optimal performance and reliability.
+            <ListItem title="User Experience">
+              Focus on creating intuitive interfaces that merchants and their customers love to use.
             </ListItem>
-            <ListItem title="Flexible Pricing">
-              Start with our free plan and scale up as your business grows with our affordable Pro plan.
+            <ListItem title="Continuous Support">
+              Dedicated support and regular updates to ensure your app stays current and effective.
             </ListItem>
           </List>
         </div>
@@ -102,46 +103,57 @@ function CaseStudies({ caseStudies }) {
   )
 }
 
-function Services() {
+function EasyPopSection() {
   return (
-    <>
-      <SectionIntro
-        eyebrow="Services"
-        title="Expert Shopify App Development"
-        className="mt-24 sm:mt-32 lg:mt-40"
-      >
-        <p>
-          With over 15 years of combined experience, we create powerful e-commerce solutions that drive results.
-        </p>
-      </SectionIntro>
-      <Container className="mt-16">
-        <div className="lg:flex lg:items-center lg:justify-end">
-          <div className="flex justify-center lg:w-1/2 lg:justify-end lg:pr-12">
-            <FadeIn className="w-[33.75rem] flex-none lg:w-[45rem]">
-              <StylizedImage
-                src={imageLaptop}
-                sizes="(min-width: 1024px) 41rem, 31rem"
-                className="justify-center lg:justify-end"
-              />
-            </FadeIn>
-          </div>
-          <List className="mt-16 lg:mt-0 lg:w-1/2 lg:min-w-[33rem] lg:pl-4">
-            <ListItem title="Custom App Development">
-              We build tailored Shopify apps that solve specific business challenges and enhance your store's functionality.
-            </ListItem>
-            <ListItem title="E-commerce Solutions">
-              From theme customizations to full-featured apps, we help merchants optimize their online presence.
-            </ListItem>
-            <ListItem title="Technical Expertise">
-              Our team specializes in Remix, React, and the latest Shopify development tools and best practices.
-            </ListItem>
-            <ListItem title="Ongoing Support">
-              We provide reliable technical support and maintenance to ensure your app runs smoothly.
-            </ListItem>
-          </List>
+    <Container className="mt-24 sm:mt-32 lg:mt-40">
+      <div className="lg:flex lg:items-center lg:justify-between lg:gap-x-8">
+        <div className="lg:w-1/2 lg:pr-12">
+          <FadeIn>
+            <div className="flex items-center gap-x-4">
+              <span className="inline-flex items-center rounded-full bg-neutral-950 px-3 py-1 text-sm font-medium text-white">
+                New
+              </span>
+              <h2 className="font-display text-4xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-5xl">
+                Meet EasyPop
+              </h2>
+            </div>
+            <p className="mt-6 text-xl text-neutral-600">
+              Create engaging pop-up notifications that boost sales and enhance customer engagement on your Shopify store. Our powerful yet simple solution helps you connect with your customers at the right moment.
+            </p>
+            <ul className="mt-6 space-y-3 text-lg text-neutral-600">
+              <li className="flex items-center">
+                <span className="mr-3 h-2 w-2 rounded-full bg-neutral-950"></span>
+                Smart targeting based on user behavior and preferences
+              </li>
+              <li className="flex items-center">
+                <span className="mr-3 h-2 w-2 rounded-full bg-neutral-950"></span>
+                Real-time analytics and performance tracking
+              </li>
+              <li className="flex items-center">
+                <span className="mr-3 h-2 w-2 rounded-full bg-neutral-950"></span>
+                Customizable templates and design options
+              </li>
+              <li className="flex items-center">
+                <span className="mr-3 h-2 w-2 rounded-full bg-neutral-950"></span>
+                A/B testing capabilities for optimal results
+              </li>
+            </ul>
+            <div className="mt-8">
+              <ShopifyButton />
+            </div>
+          </FadeIn>
         </div>
-      </Container>
-    </>
+        <div className="mt-10 lg:mt-0 lg:w-1/2 lg:pl-12">
+          <FadeIn>
+            <div className="aspect-[4/3] relative rounded-3xl bg-neutral-100 overflow-hidden">
+              <div className="absolute inset-0 flex items-center justify-center text-neutral-500">
+                App Screenshot Coming Soon
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </div>
+    </Container>
   )
 }
 
@@ -164,9 +176,9 @@ export default async function Home() {
         </FadeIn>
       </Container>
 
-      <CaseStudies />
+      <EasyPopSection />
 
-      <Services />
+      <CaseStudies />
 
       <ContactSection />
     </>
