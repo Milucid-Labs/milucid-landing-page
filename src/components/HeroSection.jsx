@@ -22,10 +22,10 @@ export function HeroSection() {
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
         <FadeIn className="max-w-3xl">
           <h1 className="font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl">
-            Advanced Shopify App Development
+            SaaS & Shopify Development
           </h1>
           <p className="mt-6 text-xl text-neutral-600">
-            At Milucid, we build powerful, user-friendly applications that transform e-commerce businesses - specializing in custom Shopify apps and solutions.
+            At Milucid, we build powerful, user-friendly software solutions that transform businesses. From custom SaaS applications to specialized Shopify apps, we turn your vision into reality.
           </p>
         </FadeIn>
 

@@ -67,11 +67,11 @@ function CaseStudies() {
   return (
     <>
       <SectionIntro
-        title="Shopify App Development Experts"
+        title="SaaS Development Experts"
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
-          We specialize in creating powerful, user-friendly Shopify apps that help merchants succeed in the digital marketplace.
+          We specialize in creating powerful, user-friendly software solutions with a particular expertise in Shopify apps and e-commerce platforms. Our team builds tools that help businesses thrive in the digital marketplace.
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -87,16 +87,16 @@ function CaseStudies() {
           </div>
           <List className="mt-16 lg:mt-0 lg:w-1/2 lg:min-w-[33rem] lg:pl-4">
             <ListItem title="Custom Solutions">
-              We develop tailored applications that address specific business needs and enhance functionality.
+              We develop tailored SaaS applications that address specific business needs and enhance operational efficiency.
             </ListItem>
             <ListItem title="Modern Technology">
-              Built with cutting-edge frameworks and tools for optimal performance and reliability.
+              Built with cutting-edge frameworks and tools for optimal performance, scalability, and reliability.
             </ListItem>
             <ListItem title="User Experience">
-              Focus on creating intuitive interfaces that merchants and their customers love to use.
+              Focus on creating intuitive interfaces that users love, backed by robust functionality and seamless integrations.
             </ListItem>
             <ListItem title="Continuous Support">
-              Dedicated support and regular updates to ensure your app stays current and effective.
+              Dedicated support and regular updates to ensure your software stays current and effective in a rapidly evolving digital landscape.
             </ListItem>
           </List>
         </div>
@@ -165,15 +165,15 @@ function EasyPopSection() {
 
 export const metadata = {
   description:
-    'Milucid is a development studio specializing in Shopify app development and e-commerce solutions.',
+    'Milucid is a development studio specializing in SaaS solutions, Shopify apps, and e-commerce platforms.',
 }
 
 export default async function Home() {
   return (
     <>
       <HeroSection />
-      <EasyPopSection />
       <CaseStudies />
+      <EasyPopSection />
       <ContactSection />
     </>
   )
