@@ -7,18 +7,18 @@ import { PageIntro } from '@/components/PageIntro'
 import { PageLinks } from '@/components/PageLinks'
 import { loadCaseStudies } from '@/lib/mdx'
 
-export default async function CaseStudyLayout({ caseStudy, children }) {
-  let allCaseStudies = await loadCaseStudies()
-  let moreCaseStudies = allCaseStudies
-    .filter(({ metadata }) => metadata !== caseStudy)
+export default async function ProjectLayout({ caseStudy: project, children }) {
+  let allProjects = await loadCaseStudies()
+  let moreProjects = allProjects
+    .filter(({ metadata }) => metadata !== project)
     .slice(0, 2)
 
   return (
     <>
       <article className="mt-24 sm:mt-32 lg:mt-40">
         <header>
-          <PageIntro eyebrow="Case Study" title={caseStudy.title} centered>
-            <p>{caseStudy.description}</p>
+          <PageIntro eyebrow="Project" title={project.title} centered>
+            <p>{project.description}</p>
           </PageIntro>
 
           <FadeIn>
@@ -27,20 +27,20 @@ export default async function CaseStudyLayout({ caseStudy, children }) {
                 <div className="mx-auto max-w-5xl">
                   <dl className="-mx-6 grid grid-cols-1 text-sm text-neutral-950 sm:mx-0 sm:grid-cols-3">
                     <div className="border-t border-neutral-200 px-6 py-4 first:border-t-0 sm:border-l sm:border-t-0">
-                      <dt className="font-semibold">Client</dt>
-                      <dd>{caseStudy.client}</dd>
+                      <dt className="font-semibold">Name</dt>
+                      <dd>{project.client}</dd>
                     </div>
                     <div className="border-t border-neutral-200 px-6 py-4 first:border-t-0 sm:border-l sm:border-t-0">
                       <dt className="font-semibold">Year</dt>
                       <dd>
-                        <time dateTime={caseStudy.date.split('-')[0]}>
-                          {caseStudy.date.split('-')[0]}
+                        <time dateTime={project.date.split('-')[0]}>
+                          {project.date.split('-')[0]}
                         </time>
                       </dd>
                     </div>
                     <div className="border-t border-neutral-200 px-6 py-4 first:border-t-0 sm:border-l sm:border-t-0">
-                      <dt className="font-semibold">Service</dt>
-                      <dd>{caseStudy.service}</dd>
+                      <dt className="font-semibold">Category</dt>
+                      <dd>{project.service}</dd>
                     </div>
                   </dl>
                 </div>
@@ -50,7 +50,7 @@ export default async function CaseStudyLayout({ caseStudy, children }) {
             <div className="border-y border-neutral-200 bg-neutral-100">
               <div className="-my-px mx-auto max-w-[76rem] bg-neutral-200">
                 <GrayscaleTransitionImage
-                  {...caseStudy.image}
+                  {...project.image}
                   quality={90}
                   className="w-full"
                   sizes="(min-width: 1216px) 76rem, 100vw"
@@ -68,11 +68,11 @@ export default async function CaseStudyLayout({ caseStudy, children }) {
         </Container>
       </article>
 
-      {moreCaseStudies.length > 0 && (
+      {moreProjects.length > 0 && (
         <PageLinks
           className="mt-24 sm:mt-32 lg:mt-40"
-          title="More case studies"
-          pages={moreCaseStudies}
+          title="More projects"
+          pages={moreProjects}
         />
       )}
 
