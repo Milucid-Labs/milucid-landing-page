@@ -9,6 +9,7 @@ import { SectionIntro } from '@/components/SectionIntro'
 import { StylizedImage } from '@/components/StylizedImage'
 import { Testimonial } from '@/components/Testimonial'
 import { ShopifyButton } from '@/components/ShopifyButton'
+import { HeroSection } from '@/components/HeroSection'
 import logoBrightPath from '@/images/clients/bright-path/logo-light.svg'
 import logoFamilyFund from '@/images/clients/family-fund/logo-light.svg'
 import logoGreenLife from '@/images/clients/green-life/logo-light.svg'
@@ -38,7 +39,7 @@ function Clients() {
       <Container>
         <FadeIn className="flex items-center gap-x-8">
           <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
-            We’ve worked with hundreds of amazing people
+            We've worked with hundreds of amazing people
           </h2>
           <div className="h-px flex-auto bg-neutral-800" />
         </FadeIn>
@@ -61,7 +62,7 @@ function Clients() {
   )
 }
 
-function CaseStudies({ caseStudies }) {
+function CaseStudies() {
   return (
     <>
       <SectionIntro
@@ -165,21 +166,9 @@ export const metadata = {
 export default async function Home() {
   return (
     <>
-      <Container className="mt-24 sm:mt-32 md:mt-56">
-        <FadeIn className="max-w-3xl">
-          <h1 className="font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl">
-            Advanced Shopify App Development
-          </h1>
-          <p className="mt-6 text-xl text-neutral-600">
-            At Milucid, we build powerful, user-friendly applications that transform e-commerce businesses - specializing in custom Shopify apps and solutions.
-          </p>
-        </FadeIn>
-      </Container>
-
+      <HeroSection />
       <EasyPopSection />
-
       <CaseStudies />
-
       <ContactSection />
     </>
   )
