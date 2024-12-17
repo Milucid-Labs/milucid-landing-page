@@ -3,18 +3,22 @@
 import { motion } from 'framer-motion'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
-
-// Generate random positions for dots
-const generateDots = (count) => {
-  return Array.from({ length: count }, (_, i) => ({
-    id: i,
-    x: Math.random() * 400 - 200,
-    y: Math.random() * 400 - 200,
-  }))
-}
+import { useEffect, useState } from 'react'
 
 export function HeroSection() {
-  const dots = generateDots(12)
+  const [dots, setDots] = useState([])
+
+  useEffect(() => {
+    // Generate random positions within useEffect to run only on the client
+    const generateDots = (count) => {
+      return Array.from({ length: count }, (_, i) => ({
+        id: i,
+        x: Math.random() * 400 - 200,
+        y: Math.random() * 400 - 200,
+      }))
+    }
+    setDots(generateDots(12))
+  }, [])
 
   return (
     <Container className="mt-24 sm:mt-32 md:mt-56">

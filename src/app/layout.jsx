@@ -4,8 +4,11 @@ import '@/styles/tailwind.css'
 
 export const metadata = {
   title: {
-    template: '%s - Studio',
-    default: 'Studio - Award winning developer studio based in Denmark',
+    template: '%s - Milucid',
+    default: 'Milucid - Development Studio Specializing in SaaS and E-commerce Solutions',
+  },
+  icons: {
+    icon: '/favicon.png',
   },
 }
 

@@ -3,6 +3,8 @@ import clsx from 'clsx'
 export function Logomark({
   className,
   invert = false,
+  filled,
+  fillOnHover,
   ...props
 }) {
   return (
@@ -10,7 +12,7 @@ export function Logomark({
       width="25"
       height="25"
       viewBox="0 0 25 25"
-      className={className}
+      className={clsx(className)}
       {...props}
     >
       <path d="M0.581543 24.0253V7.00128H4.45354L4.58154 10.2333H4.77354C5.66954 7.89728 7.81354 6.68127 10.1815 6.68127C12.6455 6.68127 14.7575 7.76928 15.6535 10.5853H15.9095C16.7735 7.99327 19.0775 6.68127 21.7015 6.68127C25.0295 6.68127 27.5895 8.66528 27.5895 13.8173V24.0253H23.5895V14.6813C23.5895 11.4813 22.5335 9.97728 20.1655 9.97728C17.6055 9.97728 16.1015 12.0893 16.1015 14.6493V24.0253H12.0695V14.6813C12.0695 11.4813 11.0135 9.97728 8.67754 9.97728C6.08554 9.97728 4.58154 12.0893 4.58154 14.6493V24.0253H0.581543Z" className={invert ? 'fill-white' : 'fill-[#020314]'}/>
@@ -21,6 +23,8 @@ export function Logomark({
 export function Logo({
   className,
   invert = false,
+  filled,
+  fillOnHover,
   ...props
 }) {
   return (
@@ -28,7 +32,7 @@ export function Logo({
       width="118"
       height="25"
       viewBox="0 0 118 25"
-      className={className}
+      className={clsx(className)}
       {...props}
     >
       <path d="M113.946 24.0253V20.1853H117.818V24.0253H113.946Z" className={invert ? 'fill-white' : 'fill-[#020314]'}/>

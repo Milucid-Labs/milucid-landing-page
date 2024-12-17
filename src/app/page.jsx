@@ -40,7 +40,7 @@ function Clients() {
       <Container>
         <FadeIn className="flex items-center gap-x-8">
           <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
-            We've worked with hundreds of amazing people
+            We&apos;ve worked with hundreds of amazing people
           </h2>
           <div className="h-px flex-auto bg-neutral-800" />
         </FadeIn>
@@ -165,7 +165,7 @@ function EasyPopSection() {
 
 export const metadata = {
   description:
-    'Milucid is a development studio specializing in SaaS solutions, Shopify apps, and e-commerce platforms.',
+    'Milucid is a development studio specializing in custom SaaS solutions, Shopify apps, and e-commerce platforms that drive business growth.',
 }
 
 export default async function Home() {

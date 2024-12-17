@@ -9,11 +9,11 @@ export function ContactSection() {
         <div className="mx-auto max-w-4xl">
           <div className="max-w-xl">
             <h2 className="font-display text-3xl font-medium text-white [text-wrap:balance] sm:text-4xl">
-              Tell us about your project
+              Need help with integration or custom solutions?
             </h2>
             <div className="mt-6 flex">
               <Button href="/contact" invert>
-                Say Hej
+                Let&apos;s Talk
               </Button>
             </div>
           </div>

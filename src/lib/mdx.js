@@ -19,10 +19,6 @@ async function loadEntries(directory, metaName) {
   ).sort((a, b) => b.date.localeCompare(a.date))
 }
 
-export function loadArticles() {
-  return loadEntries('blog', 'article')
-}
-
 export function loadCaseStudies() {
   return loadEntries('work', 'caseStudy')
 }
