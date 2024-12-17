@@ -6,7 +6,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  output: 'export',
 }
 
 const withMDX = createMDX({
