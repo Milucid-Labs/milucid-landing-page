@@ -1,5 +1,8 @@
 # Milucid Landing Page
 
+![CleanShot 2024-12-17 at 07 33 46@2x](https://github.com/user-attachments/assets/889dc2ad-a512-4f9c-956d-2156dde6a4fd)
+
+
 This is the official landing page for Milucid, built using the [Studio template](https://tailwindui.com/templates/studio) from Tailwind UI. The website is crafted with [Tailwind CSS](https://tailwindcss.com) and [Next.js](https://nextjs.org) to showcase Milucid's services and vision.
 
 ## Production
