@@ -37,12 +37,14 @@ jobs:
           git push origin HEAD:main
 
       - name: Build
-        run: pnpm build
+        run: |
+          pnpm build
+          touch out/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: out
 
   deploy:
     needs: build
