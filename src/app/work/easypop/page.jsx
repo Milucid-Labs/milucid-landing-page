@@ -1,3 +1,5 @@
+'use client'
+
 import logo from '@/images/clients/easypop/logomark-dark.svg'
 import imageHero from './hero.jpg'
 import Image from 'next/image'
@@ -7,10 +9,7 @@ import { PageIntro } from '@/components/PageIntro'
 import { TagList, TagListItem } from '@/components/TagList'
 import { StatList, StatListItem } from '@/components/StatList'
 
-export const metadata = {
-  title: 'Easypop Project',
-  description: 'Boost Your Shopify Sales with Smart Popups',
-}
+export const dynamic = 'force-static'
 
 export default function EasyPopCaseStudy() {
   return (

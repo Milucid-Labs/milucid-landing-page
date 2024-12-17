@@ -1,3 +1,5 @@
+'use client'
+
 import { useId } from 'react'
 import Link from 'next/link'
 
@@ -107,11 +109,6 @@ function ContactDetails() {
       </Border>
     </FadeIn>
   )
-}
-
-export const metadata = {
-  title: 'Contact Us',
-  description: 'Let’s work together. We can’t wait to hear from you.',
 }
 
 export default function Contact() {
