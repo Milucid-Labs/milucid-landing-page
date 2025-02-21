@@ -5,8 +5,8 @@ Milucid is a development studio specializing in Shopify app development and e-co
 
 ## Our Products
 
-### EasyPop for Shopify
-EasyPop is a Shopify app that helps merchants create and manage personalized pop-up notifications to boost engagement and drive sales.
+### PopWise for Shopify
+PopWise is a Shopify app that helps merchants create and manage personalized pop-up notifications to boost engagement and drive sales.
 
 #### Key Features
 - Create custom pop-up notifications with images, icons, and dynamic content
@@ -62,7 +62,7 @@ For technical support or inquiries:
 
 ## Documentation
 For detailed documentation:
-- EasyPop Variables and Templates Guide
+- PopWise Variables and Templates Guide
 - App Documentation
 
 ## Best Practices

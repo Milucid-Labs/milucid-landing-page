@@ -11,13 +11,13 @@ import { StatList, StatListItem } from '@/components/StatList'
 
 export const dynamic = 'force-static'
 
-export default function EasyPopCaseStudy() {
+export default function PopWiseCaseStudy() {
   return (
     <>
       <article className="mt-24 sm:mt-32 lg:mt-40">
         <header>
           <PageIntro
-            eyebrow="EasyPop"
+            eyebrow="PopWise"
             title="Boost Your Shopify Sales with Smart Popups"
             centered
           >
@@ -33,7 +33,7 @@ export default function EasyPopCaseStudy() {
                   <dl className="-mx-6 grid grid-cols-1 text-sm text-neutral-950 sm:mx-0 sm:grid-cols-3">
                     <div className="border-t border-neutral-200 px-6 py-4 first:border-t-0 sm:border-l sm:border-t-0">
                       <dt className="font-semibold">Name</dt>
-                      <dd>Easypop</dd>
+                      <dd>PopWise</dd>
                     </div>
                     <div className="border-t border-neutral-200 px-6 py-4 first:border-t-0 sm:border-l sm:border-t-0">
                       <dt className="font-semibold">Year</dt>

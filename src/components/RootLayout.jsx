@@ -127,7 +127,7 @@ function Navigation() {
   return (
     <nav className="mt-px font-display text-5xl font-medium tracking-tight text-white">
       <NavigationRow>
-        <NavigationItem href="/work/easypop">EasyPop</NavigationItem>
+        <NavigationItem href="/work/popwise">PopWise</NavigationItem>
         <NavigationItem href="/process">Our Process</NavigationItem>
       </NavigationRow>
     </nav>

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import previewImage from './work/easypop/preview.png'
+import previewImage from './work/popwise/preview.png'
 
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
@@ -105,7 +105,7 @@ function CaseStudies() {
   )
 }
 
-function EasyPopSection() {
+function PopWiseSection() {
   return (
     <Container className="mt-24 sm:mt-32 lg:mt-40">
       <div className="lg:flex lg:items-center lg:justify-between lg:gap-x-8">
@@ -116,7 +116,7 @@ function EasyPopSection() {
                 New
               </span>
               <h2 className="font-display text-4xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-5xl">
-                Meet EasyPop
+                Meet PopWise
               </h2>
             </div>
             <p className="mt-6 text-xl text-neutral-600">
@@ -150,7 +150,7 @@ function EasyPopSection() {
             <div className="aspect-[4/3] relative rounded-3xl bg-neutral-100 overflow-hidden">
               <Image
                 src={previewImage}
-                alt="EasyPop Preview"
+                alt="PopWise Preview"
                 fill
                 className="object-cover"
                 priority
@@ -173,7 +173,7 @@ export default async function Home() {
     <>
       <HeroSection />
       <CaseStudies />
-      <EasyPopSection />
+      <PopWiseSection />
       <ContactSection />
     </>
   )
