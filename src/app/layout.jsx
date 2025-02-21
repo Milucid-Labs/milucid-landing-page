@@ -1,4 +1,5 @@
 import { RootLayout } from '@/components/RootLayout'
+import Script from 'next/script'
 
 import '@/styles/tailwind.css'
 
@@ -15,6 +16,20 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <html lang="en" className="h-full bg-neutral-950 text-base antialiased">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-X41EH3P3QV"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-X41EH3P3QV');
+          `}
+        </Script>
+      </head>
       <body className="flex min-h-full flex-col">
         <RootLayout>{children}</RootLayout>
       </body>
