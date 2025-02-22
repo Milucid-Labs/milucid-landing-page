@@ -1,6 +1,6 @@
 'use client'
 
-import { useId } from 'react'
+import { useId, useState } from 'react'
 import Link from 'next/link'
 
 import { Border } from '@/components/Border'
@@ -9,7 +9,26 @@ import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
 import { PageIntro } from '@/components/PageIntro'
 
-function TextInput({ label, ...props }) {
+function StatusMessage({ type, message }) {
+  return (
+    <div className={`mt-6 p-4 rounded-lg ${type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+      <div className="flex items-center">
+        {type === 'success' ? (
+          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          </svg>
+        ) : (
+          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+          </svg>
+        )}
+        <p>{message}</p>
+      </div>
+    </div>
+  )
+}
+
+function TextInput({ label, error, ...props }) {
   let id = useId()
 
   return (
@@ -19,7 +38,7 @@ function TextInput({ label, ...props }) {
         id={id}
         {...props}
         placeholder=" "
-        className="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
+        className={`peer block w-full border ${error ? 'border-red-500' : 'border-neutral-300'} bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl`}
       />
       <label
         htmlFor={id}
@@ -27,6 +46,9 @@ function TextInput({ label, ...props }) {
       >
         {label}
       </label>
+      {error && (
+        <p className="absolute -bottom-6 left-6 text-sm text-red-600">{error}</p>
+      )}
     </div>
   )
 }
@@ -45,42 +67,228 @@ function RadioInput({ label, ...props }) {
 }
 
 function ContactForm() {
+  const [inquiryType, setInquiryType] = useState('support')
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    message: '',
+    budget: '',
+    inquiryType: 'support'
+  })
+  const [errors, setErrors] = useState({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [status, setStatus] = useState(null) // { type: 'success' | 'error', message: string }
+
+  const validateForm = () => {
+    const newErrors = {}
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required'
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required'
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+      newErrors.email = 'Invalid email address'
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required'
+    }
+
+    if (formData.inquiryType === 'project' && !formData.budget) {
+      newErrors.budget = 'Please select a budget range'
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setStatus(null)
+
+    if (!validateForm()) {
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('https://n8n.milucid.com/webhook/ca082b10-9fb7-46d7-936f-4ef7ee59ff1e', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company || '',
+          message: formData.message,
+          budget: formData.budget || '',
+          type: formData.inquiryType,
+          source: 'website_contact_form',
+          timestamp: new Date().toISOString()
+        }),
+      })
+
+      // Check if the response is ok, regardless of the content type
+      if (!response.ok) {
+        throw new Error('Failed to submit form')
+      }
+
+      // Clear form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        message: '',
+        budget: '',
+        inquiryType: 'support'
+      })
+      setInquiryType('support')
+      setStatus({
+        type: 'success',
+        message: 'Thank you for your message! We will get back to you soon.'
+      })
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setStatus({
+        type: 'error',
+        message: 'Failed to submit form. Please try again.'
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+
+    if (name === 'inquiryType') {
+      setInquiryType(value)
+    }
+
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }))
+    }
+  }
+
   return (
     <FadeIn className="lg:order-last">
-      <form>
-        <h2 className="font-display text-base font-semibold text-neutral-950">
+      <form onSubmit={handleSubmit}>
+        <h2 className="font-display text-base font-semibold text-neutral-950 mb-6">
           Work inquiries
         </h2>
-        <div className="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
-          <TextInput label="Name" name="name" autoComplete="name" />
+
+        <div className="isolate rounded-2xl bg-white/50">
+          <div className="group relative z-0 transition-all focus-within:z-10 border border-neutral-300 first:rounded-t-2xl">
+            <select
+              id="inquiryType"
+              name="inquiryType"
+              value={formData.inquiryType}
+              onChange={handleInputChange}
+              className="peer block w-full bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 transition focus:outline-none"
+            >
+              <option value="support">Support Inquiry</option>
+              <option value="project">New Project</option>
+            </select>
+            <label
+              htmlFor="inquiryType"
+              className="pointer-events-none absolute left-6 top-1/2 -mt-3 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950"
+            >
+              Inquiry Type
+            </label>
+          </div>
+
+          <TextInput
+            label="Name"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            error={errors.name}
+            autoComplete="name"
+          />
           <TextInput
             label="Email"
             type="email"
             name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            error={errors.email}
             autoComplete="email"
           />
           <TextInput
             label="Company"
             name="company"
+            value={formData.company}
+            onChange={handleInputChange}
             autoComplete="organization"
           />
-          <TextInput label="Phone" type="tel" name="phone" autoComplete="tel" />
-          <TextInput label="Message" name="message" />
-          <div className="border border-neutral-300 px-6 py-8 first:rounded-t-2xl last:rounded-b-2xl">
-            <fieldset>
-              <legend className="text-base/6 text-neutral-500">Budget</legend>
-              <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
-                <RadioInput label="$25K – $50K" name="budget" value="25" />
-                <RadioInput label="$50K – $100K" name="budget" value="50" />
-                <RadioInput label="$100K – $150K" name="budget" value="100" />
-                <RadioInput label="More than $150K" name="budget" value="150" />
-              </div>
-            </fieldset>
-          </div>
+          <TextInput
+            label="Message"
+            name="message"
+            value={formData.message}
+            onChange={handleInputChange}
+            error={errors.message}
+          />
+          {inquiryType === 'project' && (
+            <div className="border border-neutral-300 px-6 py-8 last:rounded-b-2xl">
+              <fieldset>
+                <legend className="text-base/6 text-neutral-500">Budget</legend>
+                <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
+                  <RadioInput
+                    label="$25K – $50K"
+                    name="budget"
+                    value="25"
+                    checked={formData.budget === '25'}
+                    onChange={handleInputChange}
+                  />
+                  <RadioInput
+                    label="$50K – $100K"
+                    name="budget"
+                    value="50"
+                    checked={formData.budget === '50'}
+                    onChange={handleInputChange}
+                  />
+                  <RadioInput
+                    label="$100K – $150K"
+                    name="budget"
+                    value="100"
+                    checked={formData.budget === '100'}
+                    onChange={handleInputChange}
+                  />
+                  <RadioInput
+                    label="More than $150K"
+                    name="budget"
+                    value="150"
+                    checked={formData.budget === '150'}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                {errors.budget && (
+                  <p className="mt-2 text-sm text-red-600">{errors.budget}</p>
+                )}
+              </fieldset>
+            </div>
+          )}
         </div>
-        <Button type="submit" className="mt-10">
-          Let’s work together
-        </Button>
+
+        <div className="mt-6 flex flex-col items-start gap-y-4">
+          {status && <StatusMessage type={status.type} message={status.message} />}
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Sending...' : 'Send Message'}
+          </Button>
+        </div>
       </form>
     </FadeIn>
   )
