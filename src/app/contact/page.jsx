@@ -191,23 +191,30 @@ function ContactForm() {
         </h2>
 
         <div className="isolate rounded-2xl bg-white/50">
-          <div className="group relative z-0 transition-all focus-within:z-10 border border-neutral-300 first:rounded-t-2xl">
-            <select
-              id="inquiryType"
-              name="inquiryType"
-              value={formData.inquiryType}
-              onChange={handleInputChange}
-              className="peer block w-full bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 transition focus:outline-none"
-            >
-              <option value="support">Support Inquiry</option>
-              <option value="project">New Project</option>
-            </select>
+          <div className="border border-neutral-300 first:rounded-t-2xl px-6 py-4">
             <label
               htmlFor="inquiryType"
-              className="pointer-events-none absolute left-6 top-1/2 -mt-3 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950"
+              className="block text-base/6 text-neutral-500 mb-2"
             >
               Inquiry Type
             </label>
+            <div className="relative">
+              <select
+                id="inquiryType"
+                name="inquiryType"
+                value={formData.inquiryType}
+                onChange={handleInputChange}
+                className="w-full bg-transparent pr-10 py-2 text-lg text-neutral-950 border-0 focus:outline-none appearance-none"
+              >
+                <option value="support">Support Inquiry</option>
+                <option value="project">New Project</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+                <svg className="h-4 w-4 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
           </div>
 
           <TextInput
