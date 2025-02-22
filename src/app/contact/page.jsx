@@ -74,27 +74,59 @@ function ContactForm() {
     company: '',
     message: '',
     budget: '',
-    inquiryType: 'support'
+    inquiryType: 'support',
+    _honeypot: '' // Honeypot field
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [status, setStatus] = useState(null) // { type: 'success' | 'error', message: string }
+  const [status, setStatus] = useState(null)
+  const [lastSubmissionTime, setLastSubmissionTime] = useState(0)
+
+  // Sanitize input to prevent XSS
+  const sanitizeInput = (input) => {
+    return input.replace(/[<>]/g, '')
+  }
 
   const validateForm = () => {
     const newErrors = {}
+    const now = Date.now()
+    const timeSinceLastSubmission = now - lastSubmissionTime
+
+    // Rate limiting - 30 seconds between submissions
+    if (timeSinceLastSubmission < 30000) {
+      newErrors.general = `Please wait ${Math.ceil((30000 - timeSinceLastSubmission) / 1000)} seconds before submitting again`
+      return false
+    }
+
+    // Check honeypot
+    if (formData._honeypot) {
+      console.log('Honeypot triggered')
+      newErrors.general = 'Form submission failed'
+      return false
+    }
 
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required'
+    } else if (formData.name.length > 100) {
+      newErrors.name = 'Name is too long'
     }
 
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required'
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
       newErrors.email = 'Invalid email address'
+    } else if (formData.email.length > 100) {
+      newErrors.email = 'Email is too long'
     }
 
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required'
+    } else if (formData.message.length > 1000) {
+      newErrors.message = 'Message is too long (maximum 1000 characters)'
+    }
+
+    if (formData.company && formData.company.length > 100) {
+      newErrors.company = 'Company name is too long'
     }
 
     if (formData.inquiryType === 'project' && !formData.budget) {
@@ -116,27 +148,31 @@ function ContactForm() {
     setIsSubmitting(true)
 
     try {
+      // Sanitize all inputs before sending
+      const sanitizedData = {
+        name: sanitizeInput(formData.name),
+        email: sanitizeInput(formData.email.toLowerCase()),
+        company: formData.company ? sanitizeInput(formData.company) : '',
+        message: sanitizeInput(formData.message),
+        budget: formData.budget || '',
+        type: formData.inquiryType,
+        source: 'website_contact_form',
+        timestamp: new Date().toISOString()
+      }
+
       const response = await fetch('https://n8n.milucid.com/webhook/ca082b10-9fb7-46d7-936f-4ef7ee59ff1e', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          company: formData.company || '',
-          message: formData.message,
-          budget: formData.budget || '',
-          type: formData.inquiryType,
-          source: 'website_contact_form',
-          timestamp: new Date().toISOString()
-        }),
+        body: JSON.stringify(sanitizedData),
       })
 
-      // Check if the response is ok, regardless of the content type
       if (!response.ok) {
         throw new Error('Failed to submit form')
       }
+
+      setLastSubmissionTime(Date.now())
 
       // Clear form after successful submission
       setFormData({
@@ -145,7 +181,8 @@ function ContactForm() {
         company: '',
         message: '',
         budget: '',
-        inquiryType: 'support'
+        inquiryType: 'support',
+        _honeypot: ''
       })
       setInquiryType('support')
       setStatus({
@@ -189,6 +226,24 @@ function ContactForm() {
         <h2 className="font-display text-base font-semibold text-neutral-950 mb-6">
           Work inquiries
         </h2>
+
+        {/* Hidden honeypot field to catch bots */}
+        <div className="hidden">
+          <input
+            type="text"
+            name="_honeypot"
+            value={formData._honeypot}
+            onChange={handleInputChange}
+            tabIndex="-1"
+            autoComplete="off"
+          />
+        </div>
+
+        {errors.general && (
+          <div className="mb-4 text-sm text-red-600">
+            {errors.general}
+          </div>
+        )}
 
         <div className="isolate rounded-2xl bg-white/50">
           <div className="border border-neutral-300 first:rounded-t-2xl px-6 py-4">
